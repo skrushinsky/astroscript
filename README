@@ -1,20 +1,6 @@
 AstroScript
 
-
-Library of astronomical calculations, aimed for astrology software. The
-algorithms used are mainly based on "Astronomy on the Personal Computer" by
-O.Montenbruck and Th.Pfleger (C++ edition).
-
-=head1 ADVOCACY
-
-There are many astronomical libraries available in the public domain. While
-giving accurate results, they often suffer from lack of convenient API,
-documentation and maintainability. Most of the source code is written in C, C++
-or Java, and not dynamic languages. So, it is not easy for a layman to customize
-them for her custom application, be it an online lunar calendar, horoscope or
-tool for amateur sky observations. This library is an attempt to find a
-middle-ground between precision on the one hand and compact, well organized
-code on the other.
+Library of astronomical calculations, aimed for astrology software.
 
 INSTALLATION
 
@@ -28,7 +14,7 @@ To install this module, run the following commands:
 SUPPORT AND DOCUMENTATION
 
 After installing, you can find documentation for this module with the
-perldoc command from the parent directory of tje library:
+perldoc command from the parent directory of the library:
 
    perldoc AstroScript
 
@@ -40,13 +26,13 @@ Documentation files will be installed to docs directory.
 
 LICENSE AND COPYRIGHT
 
-Copyright (C) 2017 Sergey Krushinsky
+Copyright (C) 2010-2019 Sergey Krushinsky
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (1.0). You may obtain a
 copy of the full license at:
 
-L<http://www.perlfoundation.org/artistic_license_1_0>
+https://dev.perl.org/licenses/artistic.html
 
 Aggregation of this Package with a commercial distribution is always
 permitted provided that the use of this Package is embedded; that is,

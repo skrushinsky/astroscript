@@ -1,5 +1,5 @@
 package AstroScript;
-
+use 5.22.0;
 use strict;
 use warnings;
 
