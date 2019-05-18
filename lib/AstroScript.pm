@@ -48,7 +48,7 @@ code on the other.
 
 =item * L<AstroScript::Houses> —  Astrological houses, by the most used systems.
 
-=item * L<AstroScript::Houses> —  Nutation and obliquity of ecliptic.
+=item * L<AstroScript::Nutation> —  Nutation and obliquity of ecliptic.
 
 =back
 
