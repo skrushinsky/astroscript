@@ -21,7 +21,7 @@ code on the other.
 * `AstroScript::Angles` — Some abstract points related to diurnal rotation of the Celestial Sphera: *Ascendant*, *Midheaven*, *Vertex*, *East Point*.
 * `AstroScript::CoCo` —  Celestial coordinates conversions.
 * `AstroScript::Houses` —  Astrological houses, by the most used systems.
-* `AstroScript::Houses` —  Nutation and obliquity of ecliptic.
+* `AstroScript::Nutation` —  Nutation and obliquity of ecliptic.
 
 ## Requirements
 
@@ -71,7 +71,7 @@ $ perl/script/ephemeris.pl
 For list of available options. type:
 
 ```
-$ perl/script/ephemeris.pl
+$ perl/script/ephemeris.pl -h
 ```
 
 ## License And Copyright
