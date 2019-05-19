@@ -200,7 +200,7 @@ sub iterator {
     my @t = @$targets;
     sub {
     NEXT:
-        my $dst = shift @t or return undef;
+        my $dst = shift @t or return;
         my $arc = angle_c($src->{x}, $dst->{x});
         my $res = $self->find_closest($src->{id}, $dst->{id}, $arc) or goto NEXT;
         {
