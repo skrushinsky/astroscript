@@ -18,13 +18,13 @@ by O.Montenbruck, T.Phleger, Fourth Edition, Springer-Verlag, 2000.
 
 ## Contents
 
-- [AstroScript::MathUtils](./libAstroScript::MathUtils.pm) — Core mathematical routines.
-- [AstroScript::Time](./libAstroScript::Time.pm) — Time-related routines.
-- [AstroScript::Ephemeris](./libAstroScript::Ephemeris.pm) — Positions of celestial bodies.
-- [AstroScript::Angles](./libAstroScript::Angles.pm) — Some abstract points related to diurnal rotation of the Celestial Sphera: _Ascendant_, _Midheaven_, _Vertex_, _East Point_.
-- [AstroScript::CoCo](./libAstroScript::CoCo.pm) —  Coordinates conversions.
-- [AstroScript::Houses](./libAstroScript::Houses.pm) —  Astrological houses, by the most used systems.
-- [AstroScript::Nutation](./libAstroScript::Nutation.pm) —  Nutation and obliquity of ecliptic.
+- [AstroScript::MathUtils](lib/AstroScript::MathUtils.pm) — Core mathematical routines.
+- [AstroScript::Time](lib/AstroScript::Time.pm) — Time-related routines.
+- [AstroScript::Ephemeris](lib/AstroScript::Ephemeris.pm) — Positions of celestial bodies.
+- [AstroScript::Angles](lib/AstroScript::Angles.pm) — Some abstract points related to diurnal rotation of the Celestial Sphera: _Ascendant_, _Midheaven_, _Vertex_, _East Point_.
+- [AstroScript::CoCo](lib/AstroScript::CoCo.pm) —  Coordinates conversions.
+- [AstroScript::Houses](lib/AstroScript::Houses.pm) —  Astrological houses, by the most used systems.
+- [AstroScript::Nutation](lib/AstroScript::Nutation.pm) —  Nutation and obliquity of ecliptic.
 
 ## Requirements
 
