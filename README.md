@@ -2,8 +2,6 @@
 
 Perl Library of astronomical calculations, aimed for astrology software.
 
-## Advocacy
-
 There are many astronomical libraries available in the public domain. While
 giving accurate results, they often suffer from lack of convenient API,
 documentation and maintainability. Most of the source code is written in C, C++
