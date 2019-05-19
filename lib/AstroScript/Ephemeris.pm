@@ -144,8 +144,17 @@ C++ edition. The results are supposed to be precise enough for amateur's purpose
 
 =head2 planets($t, $ids, %options)
 
-Returns iterator function, which, on its turn, returns on each pass a hashref,
-containing coordinates of a celestial body:
+Returns iterator function, which, on its turn, returns on each pass:
+
+=over
+
+=item * identifier of the celestial body
+
+=item * a hashref, containing coordinates of a celestial body and its mean daily motion
+
+=back
+
+=head3 Coordinates and daily motion
 
 =over
 
