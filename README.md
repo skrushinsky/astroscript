@@ -13,15 +13,18 @@ tool for amateur sky observations. This library is an attempt to find a
 middle-ground between precision on the one hand and compact, well organized
 code on the other.
 
+Most of the calculations are based on  _"Astronomy On The Personal Computer"_
+by O.Montenbruck, T.Phleger, Fourth Edition, Springer-Verlag, 2000.
+
 ## Contents
 
-* `AstroScript::MathUtils` — Core mathematical routines.
-* `AstroScript::Time` — Time-related routines.
-* `AstroScript::Ephemeris` — Positions of celestial bodies.
-* `AstroScript::Angles` — Some abstract points related to diurnal rotation of the Celestial Sphera: *Ascendant*, *Midheaven*, *Vertex*, *East Point*.
-* `AstroScript::CoCo` —  Celestial coordinates conversions.
-* `AstroScript::Houses` —  Astrological houses, by the most used systems.
-* `AstroScript::Nutation` —  Nutation and obliquity of ecliptic.
+- [AstroScript::MathUtils](./libAstroScript::MathUtils.pm) — Core mathematical routines.
+- [AstroScript::Time](./libAstroScript::Time.pm) — Time-related routines.
+- [AstroScript::Ephemeris](./libAstroScript::Ephemeris.pm) — Positions of celestial bodies.
+- [AstroScript::Angles](./libAstroScript::Angles.pm) — Some abstract points related to diurnal rotation of the Celestial Sphera: _Ascendant_, _Midheaven_, _Vertex_, _East Point_.
+- [AstroScript::CoCo](./libAstroScript::CoCo.pm) —  Coordinates conversions.
+- [AstroScript::Houses](./libAstroScript::Houses.pm) —  Astrological houses, by the most used systems.
+- [AstroScript::Nutation](./libAstroScript::Nutation.pm) —  Nutation and obliquity of ecliptic.
 
 ## Requirements
 
@@ -73,6 +76,16 @@ For list of available options. type:
 ```
 $ perl/script/ephemeris.pl -h
 ```
+
+## Acknowledgments
+
+There are three sources, which I used:
+
+- O.Montenbruck, T.Phleger, _"Astronomy On The Personal Computer"_,
+Fourth Edition, Springer-Verlag, 2000.
+- Peter Duffett-Smith, _"Astronomy With Your Personal Computer"_,
+Cambridge University Press, 1986.
+- Jean Meeus, _"Astronomical Algorithms"_, Willmann-Bell, Inc., 1991.
 
 ## License And Copyright
 
