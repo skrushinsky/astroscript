@@ -59,13 +59,13 @@ Sidereal time related calculations.
 
 =over
 
-=item * L<ramc($t, $theta)>
+=item * L</ramc($jd, $lambda)>
 
 =back
 
 =head1 SUBROUTINES/METHODS
 
-=head2 ramc($t, $theta)
+=head2 ramc($jd, $lambda)
 
 Right Ascension of the Meridian
 
@@ -75,7 +75,7 @@ Right Ascension of the Meridian
 
 =item * B<$jd> — Standard Julian Date.
 
-=item * $lambda — geographic longitude in degrees, negative for East
+=item * B<$lambda> — geographic longitude in degrees, negative for East
 
 =back
 

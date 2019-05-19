@@ -352,7 +352,7 @@ Does the given date fall to period after Gregorian calendar?
 
 =item *
 
-gregorian_start — start of Gregorian calendar. Default value is
+B<gregorian_start> — start of Gregorian calendar. Default value is
 B<15821004> If the date is Julian ("old style"), use C<undef> value.
 To provide non-standard start of Gregorian calendar, provide a number
 in format YYYYMMDDD, e.g. C<19180126> for Jan 26, 1918.
