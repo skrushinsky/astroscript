@@ -28,6 +28,13 @@ by O.Montenbruck, T.Phleger, Fourth Edition, Springer-Verlag, 2000.
 
 * Perl >= 5.22
 
+Tested on Linux 64-bit and macOS 10.14. There should be no problems at other platforms.
+
+Perl dependencies are minimal, most of the external modules are part of the standard
+distribution. [DateTime](https://metacpan.org/pod/DateTime) is not really required.
+It is used only in example scripts and tests, not the library itself.
+
+
 ## Installation
 
 To install this module, run the following commands:
@@ -50,7 +57,7 @@ $ perldoc AstroScript::Ephemeris
 
 ```
 
-You can also generate local HTML documentation with
+You may also generate local HTML documentation with
 
 ```
 $ perl script/createdocs.pl
