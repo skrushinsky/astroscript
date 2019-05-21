@@ -84,23 +84,6 @@ sub jd2cal {
     $ye, $mo, $da
 }
 
-# sub jd2cal {
-#     my $jd = shift;
-#     my ( $f, $i ) = modf($jd - $J1900 + 0.5);
-#     if ($i > -115860) {
-#         my $a = floor($i / 36524.25 + 9.9835726e-1) + 14;
-#         $i += 1 + $a - floor($a / 4);
-#     }
-#
-#     my $b = floor($i / 365.25 + 8.02601e-1);
-#     my $c = $i - floor(365.25 * $b + 7.50001e-1) + 416;
-#     my $g = floor($c / 30.6001);
-#     my $da = $c - floor(30.6001 * $g) + $f;
-#     my $mo = $g - ($g > 13.5 ? 13 : 1);
-#     my $ye = $b + ($mo < 2.5 ? 1900 : 1899);
-#     $ye, $mo, $da
-# }
-
 sub jd0 {
     my $j = shift;
     floor( $j - 0.5 ) + 0.5;
