@@ -3,22 +3,24 @@ package AstroScript::Aspects::Aspect;
 use strict;
 use warnings;
 
-sub new {
-    my $class = shift;
-    my %arg = @_;
-    my %props = map { ("_$_", $arg{$_}) } qw/name brief_name value influence type/;
-    bless \%props, $class;
+use Class::Struct;
+
+struct (
+    name       => '$',
+    brief_name => '$',
+    value      => '$',
+    influence  => '$',
+    type       => '$'
+);
+
+sub init {
+    my ($self, %args) = @_;
+    for my $attr (keys %args) {
+        no strict 'refs';
+        $self->$attr( $args{$attr} )
+    }
+    $self
 }
-
-sub name { $_[0]->{_name} }
-
-sub brief_name { $_[0]->{_brief_name} }
-
-sub value { $_[0]->{_value} }
-
-sub influence { $_[0]->{_influence} }
-
-sub type { $_[0]->{_type} }
 
 1;
 
