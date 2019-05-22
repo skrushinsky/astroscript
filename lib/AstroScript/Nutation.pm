@@ -6,7 +6,7 @@ use Data::Dumper;
 
 our $VERSION = '1.00';
 
-use base 'Exporter';
+use Exporter qw/import/;
 use Readonly;
 
 our %EXPORT_TAGS = (

@@ -6,7 +6,7 @@ no warnings qw/experimental::signatures/;
 # The line below disables wrong perlcritic warnings
 ## no critic qw/Subroutines::ProhibitSubroutinePrototypes/
 
-use base 'Exporter';
+use Exporter qw/import/;
 use POSIX qw (floor ceil acos modf fmod);
 use List::Util qw/any reduce/;
 

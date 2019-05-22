@@ -1,9 +1,7 @@
 package AstroScript::Houses;
 use strict;
 use Readonly;
-
-require Exporter;
-our @ISA = qw/Exporter/;
+use Exporter qw/import/;
 
 my @SYSTEMS = qw/
     $PLACIDUS $KOCH $ARIES $REGIOMONTANUS $MORINUS $CAMPANUS

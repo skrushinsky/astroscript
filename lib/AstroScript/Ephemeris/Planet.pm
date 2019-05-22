@@ -22,8 +22,8 @@ Readonly our $PL => 'Pluto';
 Readonly::Array our @PLANETS =>
   ( $MO, $SU, $ME, $VE, $MA, $JU, $SA, $UR, $NE, $PL );
 
-require Exporter;
-our @ISA = qw(Exporter);
+
+use Exporter qw/import/;
 
 our %EXPORT_TAGS = ( ids => [qw/$MO $SU $ME $VE $MA $JU $SA $UR $NE $PL/], );
 

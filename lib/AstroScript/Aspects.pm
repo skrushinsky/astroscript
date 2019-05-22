@@ -3,9 +3,8 @@ package AstroScript::Aspects;
 use strict;
 use warnings;
 
-require Exporter;
-our @ISA = qw /Exporter/;
 
+use Exporter qw/import/;
 use Readonly;
 use AstroScript::Aspects::Aspect;
 use AstroScript::Aspects::Constants qw/:types :influences/;

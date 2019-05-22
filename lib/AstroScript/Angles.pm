@@ -2,7 +2,7 @@ package AstroScript::Angles;
 
 use strict;
 use warnings;
-use base 'Exporter';
+use Exporter qw/import/;
 use POSIX qw /tan atan atan2 asin/;
 use Math::Trig qw/deg2rad rad2deg :pi/;
 use AstroScript::MathUtils qw/reduce_deg/;

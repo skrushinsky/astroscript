@@ -5,9 +5,7 @@ use strict;
 use warnings;
 use Readonly;
 use Module::Load;
-
-require Exporter;
-our @ISA = qw/Exporter/;
+use Exporter qw/import/;
 
 our %EXPORT_TAGS = (
     all  => [ qw/planets planets_with_motion/ ],

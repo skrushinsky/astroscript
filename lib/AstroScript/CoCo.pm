@@ -2,7 +2,7 @@ package AstroScript::CoCo;
 
 use strict;
 use warnings;
-use base 'Exporter';
+use Exporter qw/import/;
 use POSIX qw /tan atan2 asin/;
 use AstroScript::MathUtils qw/reduce_rad/;
 use Math::Trig qw/deg2rad rad2deg/;

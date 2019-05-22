@@ -3,7 +3,7 @@ package AstroScript::Helpers;
 use strict;
 use warnings;
 
-use base 'Exporter';
+use Exporter qw/import/;
 
 our $VERSION = '1.00';
 

@@ -3,12 +3,11 @@ use strict;
 use warnings;
 
 use Readonly;
+use Exporter qw/import/;
 use AstroScript::MathUtils qw/reduce_deg/;
 use AstroScript::Time qw/jd_cent/;
 use AstroScript::Nutation qw/nut_lon ecl_obl/;
 
-require Exporter;
-our @ISA    = qw(Exporter);
 our @EXPORT = qw/ramc/;
 
 our $VERSION = '1.00';

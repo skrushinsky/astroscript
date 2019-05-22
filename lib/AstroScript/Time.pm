@@ -5,7 +5,7 @@ use strict;
 
 our $VERSION = '1.00';
 
-use base 'Exporter';
+use Exporter qw/import/;
 
 our $SEC_PER_DAY = 86400; # Seconds per day
 our $SEC_PER_CEN = 3155760000;

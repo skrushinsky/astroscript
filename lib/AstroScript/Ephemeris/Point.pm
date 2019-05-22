@@ -14,8 +14,8 @@ Readonly our $EP => 'EastPoint';
 
 Readonly::Array our @POINTS => ( $LN, $AS, $MC, $VX, $EP );
 
-require Exporter;
-our @ISA = qw(Exporter);
+
+use Exporter qw/import/;
 
 our %EXPORT_TAGS = ( ids => [qw/$LN $AS $MC $VX $EP/], );
 

@@ -2,7 +2,7 @@ package AstroScript::Ephemeris::Pert;
 
 use strict;
 use warnings;
-use base 'Exporter';
+use Exporter qw/import/;
 our @EXPORT_OK = qw(pert addthe);
 
 our $VERSION = '1.00';

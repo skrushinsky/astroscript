@@ -3,9 +3,8 @@ package AstroScript::Aspects::Constants;
 use strict;
 use warnings;
 
-require Exporter;
-our @ISA = qw /Exporter/;
 
+use Exporter qw/import/;
 use Readonly;
 
 our $VERSION = '1.00';
