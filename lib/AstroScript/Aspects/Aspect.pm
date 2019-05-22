@@ -13,14 +13,6 @@ struct (
     type       => '$'
 );
 
-sub init {
-    my ($self, %args) = @_;
-    for my $attr (keys %args) {
-        no strict 'refs';
-        $self->$attr( $args{$attr} )
-    }
-    $self
-}
 
 1;
 

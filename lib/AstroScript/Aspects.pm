@@ -14,7 +14,7 @@ use AstroScript::MathUtils qw/angle_c diff_angle/;
 
 our $VERSION = '1.00';
 
-Readonly our $CONJUNCTION => AstroScript::Aspects::Aspect->new->init(
+Readonly our $CONJUNCTION => AstroScript::Aspects::Aspect->new(
     name       => 'Conjunction',
     brief_name => 'cnj',
     value      => 0,
@@ -22,7 +22,7 @@ Readonly our $CONJUNCTION => AstroScript::Aspects::Aspect->new->init(
     type       => $MAJOR
 );
 
-Readonly our $VIGINTILE => AstroScript::Aspects::Aspect->new->init(
+Readonly our $VIGINTILE => AstroScript::Aspects::Aspect->new(
     name       => 'Vigintile',
     brief_name => 'vgt',
     value      => 18,
@@ -30,7 +30,7 @@ Readonly our $VIGINTILE => AstroScript::Aspects::Aspect->new->init(
     type       => $KEPLER
 );
 
-Readonly our $QUINDECILE => AstroScript::Aspects::Aspect->new->init(
+Readonly our $QUINDECILE => AstroScript::Aspects::Aspect->new(
     name       => 'Quindecile',
     brief_name => 'qdc',
     value      => 24,
@@ -38,7 +38,7 @@ Readonly our $QUINDECILE => AstroScript::Aspects::Aspect->new->init(
     type       => $KEPLER
 );
 
-Readonly our $SEMISEXTILE => AstroScript::Aspects::Aspect->new->init(
+Readonly our $SEMISEXTILE => AstroScript::Aspects::Aspect->new(
     name       => 'Quindecile',
     brief_name => 'ssx',
     value      => 30,
@@ -46,7 +46,7 @@ Readonly our $SEMISEXTILE => AstroScript::Aspects::Aspect->new->init(
     type       => $MINOR
 );
 
-Readonly our $DECILE => AstroScript::Aspects::Aspect->new->init(
+Readonly our $DECILE => AstroScript::Aspects::Aspect->new(
     name       => 'Decile',
     brief_name => 'dcl',
     value      => 36,
@@ -54,7 +54,7 @@ Readonly our $DECILE => AstroScript::Aspects::Aspect->new->init(
     type       => $KEPLER
 );
 
-Readonly our $SEXTILE => AstroScript::Aspects::Aspect->new->init(
+Readonly our $SEXTILE => AstroScript::Aspects::Aspect->new(
     name       => 'Sextile',
     brief_name => 'sxt',
     value      => 60,
@@ -62,7 +62,7 @@ Readonly our $SEXTILE => AstroScript::Aspects::Aspect->new->init(
     type       => $MAJOR
 );
 
-Readonly our $SEMISQUARE => AstroScript::Aspects::Aspect->new->init(
+Readonly our $SEMISQUARE => AstroScript::Aspects::Aspect->new(
     name       => 'Semisquare',
     brief_name => 'ssq',
     value      => 45,
@@ -70,7 +70,7 @@ Readonly our $SEMISQUARE => AstroScript::Aspects::Aspect->new->init(
     type       => $MINOR
 );
 
-Readonly our $QUINTILE => AstroScript::Aspects::Aspect->new->init(
+Readonly our $QUINTILE => AstroScript::Aspects::Aspect->new(
     name       => 'Quintile',
     brief_name => 'qui',
     value      => 72,
@@ -78,7 +78,7 @@ Readonly our $QUINTILE => AstroScript::Aspects::Aspect->new->init(
     type       => $KEPLER
 );
 
-Readonly our $SQUARE => AstroScript::Aspects::Aspect->new->init(
+Readonly our $SQUARE => AstroScript::Aspects::Aspect->new(
     name       => 'Square',
     brief_name => 'sqr',
     value      => 90,
@@ -86,7 +86,7 @@ Readonly our $SQUARE => AstroScript::Aspects::Aspect->new->init(
     type       => $MAJOR
 );
 
-Readonly our $TRIDECILE => AstroScript::Aspects::Aspect->new->init(
+Readonly our $TRIDECILE => AstroScript::Aspects::Aspect->new(
     name       => 'Quindecile',
     brief_name => 'tdc',
     value      => 108,
@@ -94,7 +94,7 @@ Readonly our $TRIDECILE => AstroScript::Aspects::Aspect->new->init(
     type       => $MINOR
 );
 
-Readonly our $TRINE => AstroScript::Aspects::Aspect->new->init(
+Readonly our $TRINE => AstroScript::Aspects::Aspect->new(
     name       => 'Trine',
     brief_name => 'tri',
     value      => 120,
@@ -102,7 +102,7 @@ Readonly our $TRINE => AstroScript::Aspects::Aspect->new->init(
     type       => $MAJOR
 );
 
-Readonly our $SESQUIQUADRATE => AstroScript::Aspects::Aspect->new->init(
+Readonly our $SESQUIQUADRATE => AstroScript::Aspects::Aspect->new(
     name       => 'Sesquiquadrate',
     brief_name => 'sqq',
     value      => 135,
@@ -110,7 +110,7 @@ Readonly our $SESQUIQUADRATE => AstroScript::Aspects::Aspect->new->init(
     type       => $MINOR
 );
 
-Readonly our $BIQUINTILE => AstroScript::Aspects::Aspect->new->init(
+Readonly our $BIQUINTILE => AstroScript::Aspects::Aspect->new(
     name       => 'Quintile',
     brief_name => 'bqu',
     value      => 144,
@@ -118,7 +118,7 @@ Readonly our $BIQUINTILE => AstroScript::Aspects::Aspect->new->init(
     type       => $KEPLER
 );
 
-Readonly our $QUINCUNX => AstroScript::Aspects::Aspect->new->init(
+Readonly our $QUINCUNX => AstroScript::Aspects::Aspect->new(
     name       => 'Quincunx',
     brief_name => 'qcx',
     value      => 150,
@@ -126,7 +126,7 @@ Readonly our $QUINCUNX => AstroScript::Aspects::Aspect->new->init(
     type       => $MINOR
 );
 
-Readonly our $OPPOSITION => AstroScript::Aspects::Aspect->new->init(
+Readonly our $OPPOSITION => AstroScript::Aspects::Aspect->new(
     name       => 'Opposition',
     brief_name => 'sqr',
     value      => 180,
