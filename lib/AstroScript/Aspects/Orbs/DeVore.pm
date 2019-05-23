@@ -7,21 +7,21 @@ use Readonly;
 use base qw/AstroScript::Aspects::Orbs/;
 
 Readonly::Hash our %DEFAULT_RANGES => (
-    Conjunction => [-10.0, 6.0],
-    Vigintile => [17.5, 18.5],
-    Quindecile => [23.5, 24.5],
-    Semisextile => [28.0, 31.0],
-    Decile => [35.5, 36.5],
-    Sextile => [56, 63],
-    Semisquare => [42.0, 49.0],
-    Quintile => [71.5, 72.5],
-    Square => [84.0, 96.0],
-    Tridecile => [107.5, 108.5],
-    Trine => [113.0, 125.0],
+    Conjunction    => [-10.0, 6.0],
+    Vigintile      => [17.5, 18.5],
+    Quindecile     => [23.5, 24.5],
+    Semisextile    => [28.0, 31.0],
+    Decile         => [35.5, 36.5],
+    Sextile        => [56, 63],
+    Semisquare     => [42.0, 49.0],
+    Quintile       => [71.5, 72.5],
+    Square         => [84.0, 96.0],
+    Tridecile      => [107.5, 108.5],
+    Trine          => [113.0, 125.0],
     Sesquiquadrate => [132.0, 137.0],
-    Biquintile => [143.5, 144.5],
-    Quincunx => [148.0, 151.0],
-    Opposition => [174, 186]
+    Biquintile     => [143.5, 144.5],
+    Quincunx       => [148.0, 151.0],
+    Opposition     => [174, 186]
 );
 
 
@@ -30,7 +30,7 @@ sub new {
     my %arg = ( ranges => \%DEFAULT_RANGES, @_ );
     my $self = $class->SUPER::new( name => 'By Aspect (Nicholas deVore)');
     $self->{_ranges} = $arg{ranges};
-    $self;
+    $self
 }
 
 sub ranges {
@@ -41,6 +41,7 @@ sub ranges {
 sub is_aspect {
     my $self = shift;
     my ($src_id, $dst_id, $aspect, $arc) = @_;
+$DB::single = 1;
     my $aspname = $aspect->name;
     die "Range for $aspname does not exist" unless exists $self->ranges->{$aspname};
     my $r = $self->ranges->{$aspname};

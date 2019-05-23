@@ -6,9 +6,12 @@ use warnings;
 
 use Exporter qw/import/;
 use Readonly;
+use Module::Load;
+use Memoize;
+memoize('_create_orbs_method');
+
 use AstroScript::Aspects::Aspect;
 use AstroScript::Aspects::Constants qw/:types :influences/;
-use AstroScript::Aspects::Orbs::AspectRatio;
 use AstroScript::Ephemeris::Planet qw/@PLANETS/;
 use AstroScript::MathUtils qw/angle_c diff_angle/;
 
@@ -142,7 +145,7 @@ Readonly::Array our @ASPECTS => (
 );
 
 our %EXPORT_TAGS = (
-    aspects    => \@ASPECTS,
+    aspects => \@ASPECTS,
 );
 
 our @EXPORT_OK = (
@@ -150,27 +153,47 @@ our @EXPORT_OK = (
 );
 
 
-Readonly our $DEFAULT_ORBS => AstroScript::Aspects::Orbs::AspectRatio->new;
+Readonly our $DEFAULT_ORBS_FUNC => 'AspectRatio';
 Readonly our $DEFAULT_TYPE_FLAGS => $MAJOR;
 Readonly our $DEFAULT_GAP => 10.0;
 
+# Factory function that returns constructor of a given method for calculating orbs.
+# It does not call the constructor.
+sub _create_orbs_method {
+    my $name = shift;
+    my $pkg = join('::', qw/AstroScript Aspects Orbs/, $name);
+    load $pkg;
+    sub { $pkg->new(@_) }
+}
+
 sub new {
     my $class = shift;
-    my %arg = (orbs => $DEFAULT_ORBS, type_flags => $DEFAULT_TYPE_FLAGS, @_);
+    my %arg = (
+        orbs_func_name => $DEFAULT_ORBS_FUNC,
+        orbs_func_args => [],
+        type_flags     => $DEFAULT_TYPE_FLAGS,
+        @_
+    );
+
+    my $orbs_method = _create_orbs_method(
+        $arg{orbs_func_name})->(@{$arg{orbs_func_args}}
+    );
 
     bless  {
-        _orbs => $arg{orbs},
+        _orbs_func  => sub { $orbs_method->is_aspect(@_) },
         _type_flags => $arg{type_flags},
-        _aspects => [ grep { $arg{type_flags} & $_->type } @ASPECTS ]
+        _aspects    => [ grep { $arg{type_flags} & $_->type } @ASPECTS ]
     }, $class
 }
+
 
 sub aspects {
     $_[0]->{_aspects}
 }
 
-sub orbs {
-    $_[0]->{_orbs}
+sub is_aspect {
+    my $self = shift;
+    $self->{_orbs_func}->(@_)
 }
 
 sub type_flags {
@@ -187,7 +210,7 @@ sub find_closest {
     } map {
         [ $_, abs($_->value - $arc) ]
     } grep {
-        $self->orbs->is_aspect($src, $dst, $_, $arc)
+        $self->is_aspect($src, $dst, $_, $arc)
     } @{$self->aspects};
 
     @candidates ? $candidates[0] : undef

@@ -3,6 +3,7 @@ package AstroScript::Aspects::Orbs;
 use strict;
 use warnings;
 
+
 sub new {
     my $class = shift;
     my %arg = @_;
@@ -17,10 +18,7 @@ sub name {
     $_[0]->{_name}
 }
 
-
-sub is_aspect {
-    die "Should be overriden by descendant class"
-}
+sub is_aspect { die "Must be implemented by $_[0]" }
 
 
 1;
@@ -51,7 +49,7 @@ must implement C<is_aspect> method.
   sub is_aspect {
       my $self = shift;
       my ($src_id, $dst_id, $aspect, $arc) = @_;
-      ... # check aspect, return true or false
+      ... # check aspect, then return true or false
   }
 
 

@@ -28,7 +28,7 @@ sub _construct {
     my $parent = shift;
 
     unless (exists $FUNCS{$id}) {
-        my $pkg = join('::', 'AstroScript', 'Ephemeris', $parent, $id);
+        my $pkg = join('::', qw/AstroScript Ephemeris/, $parent, $id);
         load $pkg;
         $FUNCS{$id} = sub {
             $pkg->new(@_);

@@ -10,9 +10,9 @@ use AstroScript::Ephemeris::Planet qw/@PLANETS :ids/;
 BEGIN {
 	use_ok( 'AstroScript::Aspects', qw/:aspects @ASPECTS/ );
     use_ok( 'AstroScript::Aspects::Constants', qw/:types :influences/ );
-    use_ok( 'AstroScript::Aspects::Orbs::AspectRatio' );
-    use_ok( 'AstroScript::Aspects::Orbs::Dariot' );
-    use_ok( 'AstroScript::Aspects::Orbs::DeVore' );
+    # use_ok( 'AstroScript::Aspects::Orbs::AspectRatio' );
+    # use_ok( 'AstroScript::Aspects::Orbs::Dariot' );
+    # use_ok( 'AstroScript::Aspects::Orbs::DeVore' );
 }
 
 eval {
@@ -69,7 +69,7 @@ my @planets = (
 subtest 'Aspects' => sub {
     my @cases = (
         {
-            orbs  => AstroScript::Aspects::Orbs::Dariot->new,
+            orbs  => 'Dariot',
             count => {
                 $MO => 2,
                 $SU => 3,
@@ -84,7 +84,7 @@ subtest 'Aspects' => sub {
             }
         },
         {
-            orbs  => AstroScript::Aspects::Orbs::DeVore->new,
+            orbs  => 'DeVore',
             count => {
                 $MO => 1,
                 $SU => 2,
@@ -99,7 +99,7 @@ subtest 'Aspects' => sub {
             }
         },
         {
-            orbs  => AstroScript::Aspects::Orbs::AspectRatio->new,
+            orbs  => 'AspectRatio',
             count => {
                 $MO => 2,
                 $SU => 3,
@@ -119,13 +119,13 @@ subtest 'Aspects' => sub {
         plan tests => scalar @cases * 10;
 
         for my $case (@cases) {
-            #diag "@{[$case->{orbs}->name]} orbs";
+            diag "$case->{orbs} orbs";
 
             my $test = sub {
                 my ($src, $dst) = @_;
                 my $iter = AstroScript::Aspects->new(
-                    orbs => $case->{orbs},
-                    type_flags => $MAJOR
+                    orbs_func_name => $case->{orbs},
+                    type_flags     => $MAJOR
                 )->iterator($src, $dst);
                 my $got = 0;
                 while (my $asp = $iter->()) {
@@ -146,10 +146,10 @@ subtest 'Aspects' => sub {
     subtest 'Callback interface' => sub {
         plan tests => scalar @cases * 10;
         for my $case (@cases) {
-            #diag "@{[$case->{orbs}->name]} orbs";
+            diag "$case->{orbs} orbs";
             my $aspects = AstroScript::Aspects->new(
-                orbs => $case->{orbs},
-                type_flags => $MAJOR
+                orbs_func_name => $case->{orbs},
+                type_flags     => $MAJOR
             );
             my $test = sub {
                 my ($src, $dst) = @_;
