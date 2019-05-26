@@ -5,6 +5,9 @@ use strict;
 use warnings;
 use Readonly;
 use Module::Load;
+use Memoize;
+memoize qw/_create_constructor/;
+
 use Exporter qw/import/;
 
 our %EXPORT_TAGS = (
@@ -21,20 +24,14 @@ use AstroScript::MathUtils qw/diff_angle/;
 
 Readonly our $DAY_IN_CENT => 1 / 36525;
 
-my %FUNCS;
+sub _create_constructor {
+    my $pkg = shift;
+    load $pkg;
+    sub { $pkg->new(@_) }
+}
 
 sub _construct {
-    my $id = shift;
-    my $parent = shift;
-
-    unless (exists $FUNCS{$id}) {
-        my $pkg = join('::', qw/AstroScript Ephemeris/, $parent, $id);
-        load $pkg;
-        $FUNCS{$id} = sub {
-            $pkg->new(@_);
-        }
-    }
-    return $FUNCS{$id}
+    _create_constructor(join('::', qw/AstroScript Ephemeris/, @_))
 }
 
 
@@ -54,14 +51,14 @@ sub _iterator {
         my $pos;
         if ( $id eq $LN ) {
             $pos = {
-                x => _construct($id, 'Point')->()->position($t, %arg),
+                x => _construct('Point', $id)->()->position($t, %arg),
                 y => 0,
                 z => 0
             }
         }
         else {
             unless ($sun) {
-                $sun = _construct($SU, 'Planet')->()->position($t);
+                $sun = _construct('Planet', $SU)->()->position($t);
                 %sun_lbr = (
                     l => deg2rad($sun->{x}),
                     b => deg2rad($sun->{y}),
@@ -77,7 +74,7 @@ sub _iterator {
                         goto NEXT;
                     }
                 }
-                $pos = _construct($id, 'Planet')->()->position( $t, \%sun_lbr );
+                $pos = _construct('Planet', $id)->()->position( $t, \%sun_lbr );
             }
         }
         [ $id, $pos ];

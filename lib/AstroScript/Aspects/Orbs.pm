@@ -88,7 +88,7 @@ Are two bodies in given aspect?
 
 =head3 Return
 
-I<true> if there is the two bodies are in given aspect, otherwise I<false>.
+I<true> if there is the bodies are in given aspect, otherwise I<false>.
 
 =head1 AUTHOR
 
