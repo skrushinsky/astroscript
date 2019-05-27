@@ -11,7 +11,7 @@ memoize qw/_create_constructor/;
 use Exporter qw/import/;
 
 our %EXPORT_TAGS = (
-    all  => [ qw/planets planets_with_motion/ ],
+    all  => [ qw/iterator find_positions/ ],
 );
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} }, );
 our $VERSION = '1.00';
@@ -82,10 +82,10 @@ sub _iterator {
 }
 
 
-sub planets {
-    my $t = shift;
+sub iterator {
+    my $t       = shift;
     my $ids_ref = shift;
-    my %arg = (with_motion => 0, @_);
+    my %arg     = (with_motion => 0, @_);
 
     my $iter_1 = _iterator($t, $ids_ref, %arg);
     return $iter_1 unless $arg{with_motion};
@@ -96,6 +96,18 @@ sub planets {
         my $res = $iter_1->() or return;
         $res->[1]->{motion} = diff_angle($res->[1]->{x}, $iter_2->()->[1]->{x});
         $res
+    }
+}
+
+sub find_positions {
+    my $t        = shift;
+    my $ids_ref  = shift;
+    my $callback = shift;
+
+    my $iter = iterator($t, $ids_ref, @_);
+    while ( my $res = $iter->() ) {
+        my ($id, $pos) = @$res;
+        $callback->($id, %$pos);
     }
 }
 
@@ -113,20 +125,36 @@ AstroScript::Ephemeris - the main entry point for calculating planetary position
 
 =head1 SYNOPSIS
 
-  use DateTime;
+=head2 Iterator interface
+
   use AstroScript::Ephemeris::Planet qw/@PLANETS/;
-  use AstroScript::Ephemeris qw/planets/;
+  use AstroScript::Ephemeris qw/iterator/;
   use Data::Dumper;
 
-  my $jd = DateTime->now->jd; # Standard Julian date for current moment
+  my $jd = 2458630.5; # Standard Julian date for May 27, 2019, 00:00 UTC.
   my $t  = ($jd - 2451545) / 36525; # Convert Julian date to centuries since epoch 2000.0
-                                    # for better accuracy, $t should be converted to Ephemeris time.
-  my $iter = planets( $t, \@PLANETS ); # get iterator function for Sun. Moon and the planets.
+                                    # for better accuracy, convert $t to Ephemeris (Dynamic).
+  my $iter = iterator( $t, \@PLANETS ); # get iterator function for Sun. Moon and the planets.
 
   while ( my $result = $iter->() ) {
       my ($id, $co) = @$result;
       print $id, "\n", Dumper($co), "\n"; # geocentric longitude, latitude and distance from Earth
   }
+
+=head2 Callback interface
+
+  use AstroScript::Ephemeris::Planet qw/@PLANETS/;
+  use AstroScript::Ephemeris qw/find_positions/;
+
+  my $jd = 2458630.5; # Standard Julian date for May 27, 2019, 00:00 UTC.
+  my $t  = ($jd - 2451545) / 36525; # Convert Julian date to centuries since epoch 2000.0
+                                    # for better accuracy, convert $t to Ephemeris (Dynamic) time.
+
+  find_positions($t, \@PLANETS, sub {
+      my ($id, %pos) = @_;
+      say "$id X: $pos{x}, Y: $pos{y}, Z: $pos{z}";
+  })
+
 
 =head1 DESCRIPTION
 
@@ -134,10 +162,49 @@ Calculates positions of Sun, Moon, the 8 planets and Lunar Node. Algorithms are
 based on I<"Astronomy on the Personal Computer"> by O.Montenbruck and Th.Pfleger,
 C++ edition. The results are supposed to be precise enough for amateur's purposes.
 
+You may use one of two interfaces: iterator and callback.
+
+
+=head2 Mean daily motion
+
+To calculate mean daily motion along with the celestial coordinates, use C<with_motion>
+option:
+
+  iterator( $t, \@PLANETS, with_motion => 1 );
+  # Or:
+  find_positions($t, \@PLANETS, $callback, with_motion => 1);
+
+
+=head2 Lunar node
+
+To calculate Lunar Node position, include $LN constant (C<'LunarNode'>) to the
+array of celestial bodies ids:
+
+  use AstroScript::Ephemeris::Planet qw/@PLANETS/;
+  use AstroScript::Ephemeris::Point qw/$LN/;
+
+  my @objects = (@PLANETS, $LN);
+
+  iterator( $t, @\objects, %options);
+  # Or:
+  find_positions($t, \@objects, %options);
+
+By default, the program returns position of I<True Lunar Node>. To calculate
+the I<Mean Node>, use C<true_node> option:
+
+  iterator( $t, @\objects, true_node => 1);
+  # Or:
+  find_positions($t, \@objects, true_node => 1);
+
+=head2 Pluto
+
+Pluto's position is calculated only between years B<1890> and B<2100>.
+See L<AstroScript::Ephemeris::Planet::Pluto>.
+
 
 =head1 SUBROUTINES/METHODS
 
-=head2 planets($t, $ids, %options)
+=head2 iterator($t, $ids, %options)
 
 Returns iterator function, which, on its turn, returns on each pass:
 
@@ -159,7 +226,7 @@ Returns iterator function, which, on its turn, returns on each pass:
 
 =item * B<z> — distance from Earth in A.U.
 
-=item * B<motion> — mean daily motion, degrees, if I<with_motion> flag is set
+=item * B<motion> — mean daily motion, degrees, (only when I<with_motion> flag is set)
 
 =back
 
@@ -184,6 +251,16 @@ See  the L</"SYNOPSIS">
 =item * B<true_node> — optional flag; when set to I<true> (default), calculates I<True Lunar Node> instead of I<Mean Node> (if B<$ids> contain C<'LunarNode'>).
 
 =back
+
+=head2 find_position($t, $ids, $callback, %options)
+
+The arguments are the same as for the L<iterator|/iterator($t, $ids, %options)>,
+except the third argument, which is a callback function. It is called on each
+iteration with the following arguments:
+
+  $callback->($id, x => $scalar, y => $scalar, z => $scalar [, motion => $scalar])
+
+The position and motion are the same as described L<above|/Coordinates and daily motion>.
 
 =head1 SEE ALSO
 

@@ -41,43 +41,59 @@ BEGIN {
 }
 
 subtest 'Planets' => sub {
-
-    plan tests => (scalar @ids) * 3;
+    plan tests => 2;
     my $t  = ($jd - 2451545) / 36525;
-    my $iter = planets($t, \@ids);
-    while ( my $res = $iter->() ) {
-        my ($id, $pos) = @$res;
-        my ($x0, $y0, $z0) = @{ $data->{$id} };
-        my ($x1, $y1, $z1) = ($pos->{x}, $pos->{y}, $pos->{z});
 
-        delta_ok($x0, $x1, "$id X") or diag("Expected: $x0, got: $x1");
-        delta_ok($y0, $y1, "$id Y") or diag("Expected: $y0, got: $y1");
-        delta_ok($z0, $z1, "$id Z") or diag("Expected: $z0, got: $z1");
-    }
+    subtest 'Iterator interface' => sub {
+        plan tests => (scalar @ids) * 3;
+        my $iter = iterator($t, \@ids);
+        while ( my $res = $iter->() ) {
+            my ($id, $pos) = @$res;
+            my ($x0, $y0, $z0) = @{ $data->{$id} };
+            my ($x1, $y1, $z1) = ($pos->{x}, $pos->{y}, $pos->{z});
+
+            delta_ok($x0, $x1, "$id X") or diag("Expected: $x0, got: $x1");
+            delta_ok($y0, $y1, "$id Y") or diag("Expected: $y0, got: $y1");
+            delta_ok($z0, $z1, "$id Z") or diag("Expected: $z0, got: $z1");
+        }
+    };
+
+    subtest 'Callback interface' => sub {
+        plan tests => (scalar @ids) * 3;
+
+        find_positions($t, \@ids, sub {
+            my ($id, %pos) = @_;
+            my ($x0, $y0, $z0) = @{ $data->{$id} };
+
+            delta_ok($x0, $pos{x}, "$id X") or diag("Expected: $x0, got: $pos{x}");
+            delta_ok($y0, $pos{y}, "$id Y") or diag("Expected: $y0, got: $pos{y}");
+            delta_ok($z0, $pos{z}, "$id Z") or diag("Expected: $z0, got: $pos{z}");
+        });
+    };
 };
 
 subtest 'Lunar Node' => sub {
     my $t  = ($jd - 2451545) / 36525;
     my $coo;
-    ($_, $coo) = @{ planets($t, [$LN])->() };
+    ($_, $coo) = @{ iterator($t, [$LN])->() };
     delta_ok(81.683527, $coo->{x}, 'True Node') or diag("Expected: 81.683527, got: $coo->{x}");
-    ($_, $coo) = @{ planets($t, [$LN], true_node => 0)->() };
+    ($_, $coo) = @{ iterator($t, [$LN], true_node => 0)->() };
     delta_ok(80.311735, $coo->{x}, 'Mean Node') or diag("Expected: 80.311735, got: $coo->{x}");
 };
 
 subtest 'Pluto' => sub {
     plan tests => 4;
 
-    is(planets(-1.10000002101935, [$PL])->(), undef, '1889-12-30 23:59')
+    is(iterator(-1.10000002101935, [$PL])->(), undef, '1889-12-30 23:59')
         or diag('Expected undefined result for years < 1890');
 
-    is(planets(1.00000001901285, [$PL])->(), undef, '2100-01-01 12:01')
+    is(iterator(1.00000001901285, [$PL])->(), undef, '2100-01-01 12:01')
         or diag('Expected undefined result for years > 2099');
 
-    ok(planets(-1.09999998299365, [$PL])->(), '1889-12-31 00:01')
+    ok(iterator(-1.09999998299365, [$PL])->(), '1889-12-31 00:01')
         or diag('Expected defined result for years > 1889');
 
-    ok(planets(0.999999980987148, [$PL])->(), '2100-01-01 11:59')
+    ok(iterator(0.999999980987148, [$PL])->(), '2100-01-01 11:59')
         or diag('Expected defined result for years < 2101');
 };
 
