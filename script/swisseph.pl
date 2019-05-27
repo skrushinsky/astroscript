@@ -77,7 +77,7 @@ sub parse_content {
             next;
         }
         my @cols = split(/\s*#\s*/);
-        print Dumper(\@cols);
+        #print Dumper(\@cols);
         my $name = shift @cols;
         if (grep /$name/, @PLANETS ) {
             $rec->{Planets}->{$name} = \@cols;
@@ -123,8 +123,8 @@ $step  ||= $DEFAULT_STEP;
 my $ua = LWP::UserAgent->new(
     agent => $AGENT,
 );
-$ua->env_proxy; # установки прокси берутся из окружения.
-                # http_proxy=http://логин:пароль@192.168.0.7:3128/
+$ua->env_proxy; # get proxy settings from the environment.
+                # http_proxy=http://login:password@192.168.0.7:3128/
 
 my $state = STATE_INIT;
 my $error;
@@ -133,12 +133,12 @@ my $html;
 my %params = (
     s   => '1',
     n   => '1',
-    p   => '0123456789tnoq', # планеты, С.Узел, наклон эклиптики, дельта-T
-    e   => '-eswe', # использовать Swiss Ephemeris
-    f   => 'Plbrs', # вывод: имя, долгота, широта, расстояние от Земли, скорость;
-                    # все числа в десятичном представлении
-    arg => '-g#', # выводить заголовок
-    b   => 'j2438792.990278' # юлианский день
+    p   => '0123456789tnoq', # planets, N.Node, obliquity, delta-T
+    e   => '-eswe',          # use Swiss Ephemeris
+    f   => 'Plbrs',          # output name, longitude, latitude, distance, daily motion;
+                             # all numbers as decimals
+    arg => '-g#',            # include header
+    b   => 'j2438792.990278' # Julian day
 );
 
 #b=j2438792.990278&n=1&s=1&p=0123456789tnoq&e=-eswe&f=PLBRS&arg=%2Bhead
