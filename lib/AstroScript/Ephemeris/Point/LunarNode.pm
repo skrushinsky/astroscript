@@ -82,7 +82,23 @@ AstroScript::Ephemeris::Point::Node - Lunar Node
 =head1 DESCRIPTION
 
 Child class of L<AstroScript::Ephemeris::Point>, responsible for calculating
-B<True Lunar Node> position.
+position of the B<North Node>.
+
+I<Lunar nodes> are points of intersection between the ecliptic and the Moon's
+orbital path around the Earth. The point at which the Moon crosses the plane of
+the ecliptic when moving in a northerly direction is called I<Ascending Node> or
+I<North Node>.
+
+=head2 True Node vs Mean Node
+
+I<Mean Lunar Node>, an average value, is always retrograde. I<True Node>,
+on the other hand, continually changes direction, although it also usually moves
+in retrograde motion through the zodiac. I<True Node> is calculated with
+the respect to the fact that the Moon does not follow an exact ecliptic path
+around the Earth.
+
+By default, L<position|/position($t, %options)> function calculates the
+I<True Node>. This may be changed via I<true_node> option.
 
 =head1 METHODS
 
@@ -93,6 +109,18 @@ Constructor.
 =head2 position($t, %options)
 
 Given $t, Julian days from epoch 2000.0, in centuries, return ecliptic longitude.
+
+=head3 Options
+
+=over
+
+=item *
+
+B<true_node> — when set to I<true>, calculate I<True Lunar Node>, otherwise
+the I<Mean Lunar Node>. See: L</True Node vs Mean Node>.
+
+=back
+
 
 =head1 AUTHOR
 
