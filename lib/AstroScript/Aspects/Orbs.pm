@@ -30,8 +30,7 @@ __END__
 
 =head1 NAME
 
-AstroScript::Aspects::Orbs - Base class for calculating orbs. Each descendant
-must implement C<is_aspect> method.
+AstroScript::Aspects::Orbs - Base class for calculating orbs.
 
 =head1 SYNOPSIS
 

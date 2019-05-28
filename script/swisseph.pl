@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 ################################################################################
-# Make a seria of requests to http://www.astro.ch,
+# Make a seria of requests to http://www.astro.com,
 # to aquire data calculated with the Swiss Ephemeris.
 # These datasets may be used for testing.
 ################################################################################
@@ -32,7 +32,7 @@ Usage:
 
 Options:
 --help       : display this help message
---delay      : sleep time between requests in seconds, defaylt: 10
+--delay      : sleep time between requests in seconds, default: 10
 --step       : step in years, default=-50
 USAGE
 ;
@@ -101,9 +101,9 @@ sub parse_content {
 
 
 
-my $delay;
+my $delay = $DEFAULT_DELAY;
 my $help;
-my $step;
+my $step  = $DEFAULT_STEP;;
 
 GetOptions(
     'help'         => \$help,
@@ -115,10 +115,6 @@ if ($help) {
     printf $USAGE, $0;
     exit 0;
 }
-
-$delay ||= $DEFAULT_DELAY;
-$step  ||= $DEFAULT_STEP;
-
 
 my $ua = LWP::UserAgent->new(
     agent => $AGENT,

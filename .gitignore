@@ -44,3 +44,6 @@ nytprof/
 
 /AstroScript-*
 /dist
+
+script/swisseph.pl
+*.yml
