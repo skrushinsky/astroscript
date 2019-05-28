@@ -220,13 +220,14 @@ See L<AstroScript::Ephemeris::Planet::Pluto>.
 
 =head2 iterator($t, $ids, %options)
 
-Returns iterator function, which, on its turn, returns on each pass:
+Returns iterator function, which, on its turn, when called returns either C<undef>,
+when exhausted, or arrayref, containing:
 
 =over
 
-=item * identifier of the celestial body
+=item * identifier of the celestial body, a string
 
-=item * a hashref, containing coordinates of a celestial body and its mean daily motion
+=item * a hashref, containing celestial coordinates and mean daily motion
 
 =back
 
@@ -244,15 +245,18 @@ Returns iterator function, which, on its turn, returns on each pass:
 
 =back
 
-See  the L</"SYNOPSIS">
-
-=head3 Positional Arguments:
+=head3 Positional Arguments
 
 =over
 
-=item * B<$t> — time in centuries since epoch 2000.0; for better precision UTC should be converted to Ephemeris time (see L<AstroScript::Time>);
+=item *
 
-=item * B<$ids> — reference to an array of ids of celestial bodies to be calculated.
+B<$t> — time in centuries since epoch 2000.0; for better precision UTC should be
+converted to Ephemeris time (see L<AstroScript::Time>);
+
+=item *
+
+B<$ids> — reference to an array of ids of celestial bodies to be calculated.
 
 =back
 
@@ -260,26 +264,35 @@ See  the L</"SYNOPSIS">
 
 =over
 
-=item * B<with_motion> — optional flag; when set to I<true>, there is additional I<motion> field in the result;  B<false> by default.
+=item *
 
-=item * B<true_node> — optional flag; when set to I<true> (default), calculates I<True Lunar Node> instead of I<Mean Node> (if B<$ids> contain C<'LunarNode'>).
+B<with_motion> — optional flag; when set to I<true>, there is additional I<motion>
+field in the result;  B<false> by default.
+
+=item *
+
+B<true_node> — optional flag; when set to I<true> (default), calculates
+I<True Lunar Node> instead of I<Mean Node> (if B<$ids> contain C<'LunarNode'>).
 
 =back
 
 =head2 find_position($t, $ids, $callback, %options)
 
 The arguments are the same as for the L<iterator|/iterator($t, $ids, %options)>,
-except the third, which is a callback function. It is called on each iteration:
+except the third, which is a B<callback function>. It is called on each iteration:
 
   $callback->($id, x => $scalar, y => $scalar, z => $scalar [, motion => $scalar])
 
-The position and motion are the same as described L<above|/Coordinates and daily motion>.
+The arguments are the same as described L<above|/Coordinates and daily motion>.
 
 =head1 SEE ALSO
 
 =over
 
-=item Oliver Montenbruck, Thomas Pfleger I<"Astronomy on the Personal Computer">, 4th edition>
+=item *
+
+Oliver Montenbruck, Thomas Pfleger I<"Astronomy on the Personal Computer">,
+4th edition>
 
 =back
 
