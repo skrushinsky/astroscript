@@ -206,9 +206,9 @@ array of celestial bodies ids:
 By default, the program returns position of I<True Lunar Node>. To calculate
 the I<Mean Node>, use C<true_node> option:
 
-  iterator( $t, @\objects, true_node => 1);
+  iterator( $t, @\objects, true_node => 0);
   # Or:
-  find_positions($t, \@objects, true_node => 1);
+  find_positions($t, \@objects, true_node => 0);
 
 =head2 Pluto
 
