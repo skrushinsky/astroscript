@@ -14,7 +14,7 @@ our %EXPORT_TAGS = (
     all  => [ qw/iterator find_positions/ ],
 );
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} }, );
-our $VERSION = '1.00';
+our $VERSION = '1.10';
 
 use Math::Trig qw/deg2rad/;
 use List::Util qw/any/;
@@ -24,12 +24,20 @@ use AstroScript::MathUtils qw/diff_angle/;
 
 Readonly our $DAY_IN_CENT => 1 / 36525;
 
+# Factory function. Loads given class and returns function that wraps
+# its constructor.
+#
+# Example:
+# my $f = _create_constructor('AstroScript::Ephemeris::Planets::Sun');
+# my $sun = $f->(); # instantiate the object
+# my $pos = $sun->position($t); # calculate coordinates for the moment $t
 sub _create_constructor {
     my $pkg = shift;
     load $pkg;
     sub { $pkg->new(@_) }
 }
 
+# shortcut for _create_constructor
 sub _construct {
     _create_constructor(join('::', qw/AstroScript Ephemeris/, @_))
 }
@@ -164,6 +172,12 @@ C++ edition. The results are supposed to be precise enough for amateur's purpose
 
 You may use one of two interfaces: iterator and callback.
 
+=head2 Notes on implementation
+
+This module is implemented as a "factory". User may not need all the planets and
+points at once, so each class is loaded lazily, by demand. Over time, the range
+of celestial objects may be extended.
+
 
 =head2 Mean daily motion
 
@@ -187,7 +201,7 @@ array of celestial bodies ids:
 
   iterator( $t, @\objects, %options);
   # Or:
-  find_positions($t, \@objects, %options);
+  find_positions($t, \@objects, $callback, %options);
 
 By default, the program returns position of I<True Lunar Node>. To calculate
 the I<Mean Node>, use C<true_node> option:
@@ -202,7 +216,7 @@ Pluto's position is calculated only between years B<1890> and B<2100>.
 See L<AstroScript::Ephemeris::Planet::Pluto>.
 
 
-=head1 SUBROUTINES/METHODS
+=head1 SUBROUTINES
 
 =head2 iterator($t, $ids, %options)
 
@@ -255,8 +269,7 @@ See  the L</"SYNOPSIS">
 =head2 find_position($t, $ids, $callback, %options)
 
 The arguments are the same as for the L<iterator|/iterator($t, $ids, %options)>,
-except the third argument, which is a callback function. It is called on each
-iteration with the following arguments:
+except the third, which is a callback function. It is called on each iteration:
 
   $callback->($id, x => $scalar, y => $scalar, z => $scalar [, motion => $scalar])
 
