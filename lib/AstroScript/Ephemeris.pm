@@ -266,8 +266,8 @@ B<$ids> — reference to an array of ids of celestial bodies to be calculated.
 
 =item *
 
-B<with_motion> — optional flag; when set to I<true>, there is additional I<motion>
-field in the result;  B<false> by default.
+B<with_motion> — optional flag; when set to I<true>, there is additional B<motion>
+field in the result;  I<false> by default.
 
 =item *
 
