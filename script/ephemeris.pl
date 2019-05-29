@@ -10,7 +10,7 @@ use DateTime;
 use DateTime::Format::Strptime;
 
 use AstroScript::Time qw/jd2te jd_cent/;
-use AstroScript::Ephemeris qw/planets/;
+use AstroScript::Ephemeris qw/iterator/;
 use AstroScript::Ephemeris::Planet qw/@PLANETS/;
 use AstroScript::Ephemeris::Point qw/$LN/;
 use AstroScript::Helpers qw/dmsz_str dms_or_dec_str/;
@@ -145,11 +145,11 @@ my @hdrs =
 
 my $iter;
 if ($arg{m}) {
-    $iter = planets( $t, \@BODIES, with_motion => 1 );
+    $iter = iterator( $t, \@BODIES, with_motion => 1 );
     printf( "%-10s %-12s %-11s %-10s %-11s  \n", 'Name', @hdrs, 'Dist.', ' Motion' );
     print '-' x 56, "\n";
 } else {
-    $iter = planets( $t, \@BODIES );
+    $iter = iterator( $t, \@BODIES );
     printf( "%-10s %-12s %-11s %-10s\n", 'Name', @hdrs, 'Dist.' );
     print '-' x 43, "\n";
 }
